@@ -1,0 +1,79 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { contacts, NOTE } from "../data/site";
+---
+<Section id="spivpratsia" rec="R-005" class="spivpratsia on-dark">
+  <div class="container spivpratsia__grid">
+    <header class="spivpratsia__head">
+      <h2>Волонтерам і дилерам</h2>
+      <p class="section-head__lead">Закупівля для підрозділів, навчальних курсів і партнерський продаж — напряму з менеджером.</p>
+    </header>
+
+    <div class="tabs" data-tabs>
+      <div class="tabs__list" role="tablist" aria-label="Кому">
+        <button class="tabs__tab" role="tab" id="tab-vol" aria-controls="panel-vol" aria-selected="true" type="button">Волонтерам</button>
+        <button class="tabs__tab" role="tab" id="tab-dil" aria-controls="panel-dil" aria-selected="false" tabindex="-1" type="button">Дилерам</button>
+        <span class="tabs__indicator" aria-hidden="true"></span>
+      </div>
+
+      <div class="tabs__panels">
+        <div class="tabs__panel" role="tabpanel" id="panel-vol" aria-labelledby="tab-vol" tabindex="0">
+          <h3 class="tabs__nojs-title">Волонтерам</h3>
+          <p class="tabs__lead">Окрема пропозиція для волонтерів: консультуємо з підбору, ціни для волонтерів уточнюйте в менеджера.</p>
+          <p class="tabs__fact">Оплата карткою, на рахунок або післяплатою.</p>
+          <FutureLink note={NOTE}>Умови для волонтерів</FutureLink>
+        </div>
+        <div class="tabs__panel" role="tabpanel" id="panel-dil" aria-labelledby="tab-dil" tabindex="0">
+          <h3 class="tabs__nojs-title">Дилерам</h3>
+          <p class="tabs__lead">Шукаємо не просто покупців, а партнерів. Умови обговорюємо індивідуально.</p>
+          <ol class="steps" aria-label="Як почати співпрацю">
+            <li>Звернення</li>
+            <li>Узгодження формату й асортименту</li>
+            <li>Старт співпраці, за потреби — договір</li>
+          </ol>
+          <FutureLink note={NOTE}>Стати дилером</FutureLink>
+        </div>
+      </div>
+
+      <div class="spivpratsia__actions">
+        <a class="btn btn--accent" href={contacts.phoneHref}><Icon name="phone" />Подзвонити</a>
+        <a class="btn btn--ghost-dark" href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" />Telegram</a>
+        <a class="btn btn--ghost-dark" href={contacts.emailHref}><Icon name="mail" />{contacts.email}</a>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<script>
+  // Вкладки «Волонтерам / Дилерам»: стрілки, Home/End; без JS обидві панелі видимі.
+  document.querySelectorAll<HTMLElement>("[data-tabs]").forEach((root) => {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>("[role=tab]")];
+    const panels = tabs.map((t) => document.getElementById(t.getAttribute("aria-controls") || "")!);
+    const select = (i: number, focus = false) => {
+      tabs.forEach((t, j) => {
+        const on = i === j;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        panels[j].hidden = !on;
+      });
+      root.style.setProperty("--tab", String(i));
+      if (focus) tabs[i].focus();
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => select(i));
+      t.addEventListener("keydown", (e) => {
+        const k = e.key;
+        let n = -1;
+        if (k === "ArrowRight") n = (i + 1) % tabs.length;
+        else if (k === "ArrowLeft") n = (i - 1 + tabs.length) % tabs.length;
+        else if (k === "Home") n = 0;
+        else if (k === "End") n = tabs.length - 1;
+        if (n >= 0) { e.preventDefault(); select(n, true); }
+      });
+    });
+    root.classList.add("is-ready");
+    select(0);
+  });
+</script>

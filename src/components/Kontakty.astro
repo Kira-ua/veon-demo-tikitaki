@@ -1,0 +1,29 @@
+---
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { contacts, socials } from "../data/site";
+---
+<Section id="kontakty" rec="R-002" class="kontakty">
+  <div class="container kontakty__inner">
+    <h2>Контакти</h2>
+    <div class="kontakty__main">
+      <a class="kontakty__phone" href={contacts.phoneHref}>{contacts.phone}</a>
+      <a class="btn btn--dark kontakty__tg" href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" />Написати в Telegram</a>
+    </div>
+    <dl class="kontakty__grid">
+      <div><dt>Графік</dt><dd>{contacts.hours}<br />{contacts.hoursOff}</dd></div>
+      <div><dt>E-mail для організацій і дилерів</dt><dd><a href={contacts.emailHref}>{contacts.email}</a></dd></div>
+      <div><dt>Адреса</dt><dd>{contacts.address}</dd></div>
+      <div>
+        <dt>Ми в соцмережах</dt>
+        <dd>
+          <ul class="socials" data-rec="S-R114">
+            {socials.map((s) => (
+              <li><a class="social" href={s.href} target="_blank" rel="noopener" aria-label={s.name}><Icon name={s.icon} size={22} /></a></li>
+            ))}
+          </ul>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</Section>

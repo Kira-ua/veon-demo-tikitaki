@@ -1,0 +1,68 @@
+/* Hallmark · shape: index-first (указатель действий) · genre: editorial · theme: custom · job: buy · idea: "Чотири дії TikiTaki — навчати, рятувати, споряджати, живити: главная как указатель действий" · vibe: "инвентарь на жёлтом поле, точно и спокойно"
+ * paper: #ECEDEA · accent: #D9A51F · display: Fira Sans Extra Condensed · body: Golos Text · hero: жёлтое поле с H1 и колонкой действий, под ним 4 белые плиты-глагола разной ширины на границе поля · nav: графитовая полоса, 6 пунктов + номер + Telegram · footer: компактный графитовый, колонки ссылок · imagery: client photos (товары на белом) · signature: глаголы-указатели и плиты товаров на краю жёлтого поля
+ * axes: light/display-condensed/chromatic-yellow · posture: committed · surface: absolute (фото клиента на чистом белом) · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: E (подача без фото «Споряджати» в главах), решено типографской плитой с реальным перечнем категорий вместо слабого фото */
+/* Hallmark · waive 7b · --color-surface #FFFFFF только у плит с товаром · товарные фото клиента сняты на чистом белом (concept.md §5 Look, surface: absolute): тонированная плита дала бы видимые белые прямоугольники вокруг вырезок */
+/* Hallmark · answer 23 · жёлтое поле первого экрана и контактов — объявленная posture: committed (concept.md §5): жёлтый как поверхность бренда в двух местах страницы, текст на нём — ink 7.44:1 */
+/* Hallmark · answer F4 · одна роль primary в трёх контекстах (concept.md §15 Кнопки): графит на жёлтом поле, жёлтый на графите; на каждом экране одна заполненная главная кнопка */
+/* Hallmark · waive 44c · [1440px] центр визуала hero смещён от центра текста на ~318 px · осознанная композиция concept.md §5 «Первый экран»: H1 на 8 колонках, под ним указатель из 4 плит 5/3/2/2 на всю ширину сетки, визуал — не колонка рядом с текстом */
+/* Line 1 of this file is the Hallmark stamp (docs/process/hallmark.md): filled from design/concept.md. */
+/* Client design tokens: только из design/concept.md (veon-concept: colors, fonts). */
+:root {
+  /* Палитра (concept.md §7) */
+  --color-bg: #ECEDEA;
+  --color-surface: #FFFFFF;
+  --color-text: #1E1E1C;
+  --color-muted: #55575A;
+  --color-accent: #D9A51F;
+  --color-accent-hover: #E4B73D;
+  --color-accent-ink: #1E1E1C;
+  --color-border: #7F8283;
+  --color-hairline: #D3D5D1;
+  --color-inverse-bg: #1E1E1C;
+  --color-on-dark: #ECEDEA;
+  --color-on-dark-muted: #A3A5A6;
+  --color-on-dark-line: #3A3B39;
+
+  /* Шрифты (self-hosted, @fontsource) */
+  --font-display: "Fira Sans Extra Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "Golos Text Variable", "Golos Text", system-ui, sans-serif;
+
+  /* Шкала (1440 / 390) */
+  --fs-verb: clamp(3.5rem, 2.36rem + 4.86vw, 7rem);      /* 56 → 112 */
+  --fs-h1: clamp(2.375rem, 1.52rem + 3.65vw, 5rem);      /* 38 → 80 */
+  --fs-h2: clamp(2.125rem, 1.76rem + 1.56vw, 3.25rem);   /* 34 → 52 */
+  --fs-h3: clamp(1.375rem, 1.25rem + 0.52vw, 1.75rem);   /* 22 → 28 */
+  --fs-lead: clamp(1.125rem, 1.08rem + 0.21vw, 1.25rem); /* 18 → 20 */
+  --fs-body: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);    /* 16 → 17 */
+  --fs-small: 0.875rem;                                  /* 14 */
+  --lh-tight: 0.95;
+  --lh-head: 1.05;
+  --lh-body: 1.6;
+
+  /* Отступы, шаг 4/8 */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-6: 24px; --s-8: 32px;
+  --s-12: 48px; --s-16: 64px; --s-24: 96px; --s-32: 128px; --s-40: 160px;
+
+  /* Сетка */
+  --container: 1360px;
+  --gutter: clamp(16px, 5vw, 64px);
+  --gap: clamp(16px, 1rem + 0.5vw, 24px);
+  --space: var(--gutter);
+
+  /* Форма */
+  --radius: 4px;
+  --tap: 44px;
+  --btn-h: 52px;
+  --header-h: 72px;
+  --bar-h: 64px;
+  --overhang: 48px;
+
+  /* Движение */
+  --ease-out: cubic-bezier(.2, .7, .2, 1);
+  --dur: 400ms;
+  --dur-fast: 200ms;
+}
+@media (max-width: 767.98px) {
+  :root { --header-h: 56px; --overhang: 0px; }
+}

@@ -1,0 +1,54 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Napryamy from "../components/Napryamy.astro";
+import Komplekty from "../components/Komplekty.astro";
+import Spivpratsia from "../components/Spivpratsia.astro";
+import Zamovlennya from "../components/Zamovlennya.astro";
+import ProNas from "../components/ProNas.astro";
+import Kontakty from "../components/Kontakty.astro";
+import Footer from "../components/Footer.astro";
+import MobileBar from "../components/MobileBar.astro";
+import { contacts, socials } from "../data/site";
+
+const title = "Тренажери, муляжі поранень і аптечки — TikiTaki";
+const description = "Медичні навчальні тренажери, муляжі поранень, аптечки, навчальні макети боєприпасів, екіпіровка й сонячна енергетика. Доставка Новою поштою, оплата на рахунок.";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "OnlineStore",
+  name: "TikiTaki",
+  legalName: contacts.company,
+  telephone: "+380739172234",
+  email: contacts.email,
+  address: {
+    "@type": "PostalAddress",
+    postalCode: "12210",
+    addressRegion: "Житомирська обл.",
+    addressLocality: "с. Макалевичі",
+    streetAddress: "вул. О. Босого, 211",
+    addressCountry: "UA",
+  },
+  openingHoursSpecification: [{
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+    opens: "09:00",
+    closes: "18:00",
+  }],
+  sameAs: socials.map((s) => s.href),
+};
+---
+<Base lang="uk" title={title} description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Header slot="header" />
+  <Hero />
+  <Napryamy />
+  <Komplekty />
+  <Spivpratsia />
+  <Zamovlennya />
+  <ProNas />
+  <Kontakty />
+  <Footer slot="footer" />
+  <MobileBar slot="footer" />
+</Base>

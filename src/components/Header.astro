@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import logo from "../assets/logo-tikitaki.png";
+import { contacts, nav, NOTE } from "../data/site";
+---
+<header class="site-header on-dark" data-header>
+  <div class="container site-header__row">
+    <a class="logo" href="#top" aria-label="TikiTaki — на початок сторінки">
+      <Image src={logo} alt="TikiTaki" width={132} height={36} densities={[1, 2, 3]} loading="eager" />
+    </a>
+
+    <nav class="main-nav" aria-label="Головне меню" data-rec="R-007,R-004">
+      <ul>
+        <li><FutureLink note={NOTE} class="nav-link">Каталог</FutureLink></li>
+        {nav.map((item) => <li><a class="nav-link" href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="header-actions" data-rec="R-002">
+      <a class="header-phone" href={contacts.phoneHref}>
+        <Icon name="phone" size={18} />
+        <span class="header-phone__num">{contacts.phone}</span>
+      </a>
+      <a class="icon-btn icon-btn--accent" href={contacts.telegram} target="_blank" rel="noopener" aria-label="Написати в Telegram">
+        <Icon name="telegram" size={22} />
+      </a>
+
+      <details class="mnav" data-mnav>
+        <summary class="icon-btn mnav__toggle" aria-label="Меню">
+          <Icon name="menu" size={24} class="mnav__open" />
+          <Icon name="close" size={24} class="mnav__close" />
+        </summary>
+        <div class="mnav__panel">
+          <ul class="mnav__list">
+            <li><FutureLink note={NOTE} class="mnav__link">Каталог</FutureLink></li>
+            {nav.map((item) => <li><a class="mnav__link" href={item.href}>{item.label}</a></li>)}
+          </ul>
+          <div class="mnav__contacts">
+            <a class="mnav__phone" href={contacts.phoneHref}>{contacts.phone}</a>
+            <p class="mnav__hours">{contacts.hours}, {contacts.hoursOff}</p>
+            <div class="mnav__btns">
+              <a class="btn btn--accent" href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" />Telegram</a>
+              <a class="btn btn--ghost-dark" href={contacts.emailHref}><Icon name="mail" />{contacts.email}</a>
+            </div>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+</header>

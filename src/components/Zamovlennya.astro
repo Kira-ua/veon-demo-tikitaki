@@ -1,0 +1,33 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { NOTE } from "../data/site";
+---
+<Section id="zamovlennya" rec="R-006" class="zamovlennya">
+  <div class="container">
+    <header class="section-head">
+      <h2>Оплата і доставка</h2>
+      <p class="section-head__lead">Працюємо з приватними покупцями й організаціями по всій Україні.</p>
+    </header>
+    <div class="facts" data-reveal>
+      <section class="facts__col" aria-labelledby="pay-h">
+        <h3 id="pay-h" class="facts__title">Оплата</h3>
+        <ul class="facts__list">
+          <li>На рахунок, безготівково</li>
+          <li>Післяплата у Новій пошті</li>
+          <li>Plata by Mono</li>
+          <li>Покупка частинами monobank, від 3 до 25 платежів</li>
+        </ul>
+      </section>
+      <section class="facts__col" aria-labelledby="ship-h">
+        <h3 id="ship-h" class="facts__title">Доставка</h3>
+        <ul class="facts__list">
+          <li>Нова пошта: відділення, курʼєр, поштомат</li>
+          <li>Відправка Пн–Пт, за 1–2 дні</li>
+          <li>Номер ТТН менеджер надішле на запит</li>
+        </ul>
+      </section>
+    </div>
+    <p class="zamovlennya__more"><FutureLink note={NOTE}>Обмін та повернення</FutureLink></p>
+  </div>
+</Section>

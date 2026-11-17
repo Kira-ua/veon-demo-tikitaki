@@ -1,0 +1,61 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import Icon from "./Icon.astro";
+import { contacts } from "../data/site";
+import keis from "../assets/products/k328-keis.png";
+import aptechka from "../assets/products/aptechka-4-pidsumok.png";
+import sholom from "../assets/products/sholom-balistychnyi-fast.png";
+import shchyt from "../assets/products/shchyt-soniachnyi-15-20kvt.png";
+
+const H1 = "TikiTaki — тренажери, муляжі поранень і аптечки для навчання домедичної допомоги";
+
+const plates = [
+  { id: "navchaty", verb: "Навчати", what: "тренажери, муляжі поранень, макети", img: keis, alt: "Тренажер-муляж подвійного поранення в кейсі", span: "wide", widths: [240, 360, 480, 600] },
+  { id: "riatuvaty", verb: "Рятувати", what: "аптечки й тактична медицина", img: aptechka, alt: "Аптечка укомплектована №4 у підсумку зі швидким скидом", span: "mid", widths: [240, 360, 480, 720] },
+  { id: "sporiadzhaty", verb: "Споряджати", what: "екіпіровка й туризм", img: sholom, alt: "Балістичний шолом FAST", span: "narrow", widths: [180, 356] },
+  { id: "zhyvyty", verb: "Живити", what: "сонячна енергетика", img: shchyt, alt: "Щит захисту для сонячних панелей TOMZN", span: "narrow", widths: [180, 356] },
+];
+---
+<Section id="hero" rec="R-001,R-003,SEO-R001,SEO-R002" class="hero" label="Перший екран">
+  <div class="container hero__grid">
+    <h1 class="hero__title">{H1}</h1>
+    <div class="hero__aside">
+      <p class="hero__lead">Також екіпіровка, туризм і сонячна енергетика. Підберемо й порадимо телефоном або в Telegram.</p>
+      <div class="hero__ctas" data-rec="R-002,G-R002,M-R003,M-R004">
+        <a class="btn btn--dark" href={contacts.phoneHref}><Icon name="phone" />Подзвонити</a>
+        <a class="btn btn--outline" href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" />Написати в Telegram</a>
+      </div>
+      <p class="hero__hours">
+        <a class="hero__num" href={contacts.phoneHref}>{contacts.phone}</a><br />
+        {contacts.hours}, {contacts.hoursOff}
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <ul class="pointer" aria-label="Чотири напрями магазину" data-rec="R-004,R-014,R-016">
+      {plates.map((p, i) => (
+        <li class={`pointer__item pointer__item--${p.span}`} style={`--i:${i}`}>
+          <a class="plate" href={`#${p.id}`}>
+            <span class="plate__img">
+              <Picture
+                src={p.img}
+                alt={p.alt}
+                formats={["avif", "webp"]} fallbackFormat="webp"
+                widths={p.widths}
+                sizes={p.span === "wide" ? "(min-width: 768px) 40vw, 72px" : p.span === "mid" ? "(min-width: 768px) 24vw, 72px" : "(min-width: 768px) 16vw, 72px"}
+                loading="eager"
+                fetchpriority={i === 0 ? "high" : "auto"}
+              />
+            </span>
+            <span class="plate__text">
+              <span class="plate__verb">{p.verb}</span>
+              <span class="plate__what">{p.what}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Section>

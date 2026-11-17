@@ -1,0 +1,62 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { contacts, NOTE } from "../data/site";
+import k328 from "../assets/products/k328-trenazher-podviinoho-poranennia.png";
+import m221 from "../assets/products/m22-1-oborona-perymetra.png";
+import m251 from "../assets/products/m25-1-minnyi-trykutnyk.png";
+import m231 from "../assets/products/m23-1-osnovy-minnoi-bezpeky.png";
+import m241 from "../assets/products/m24-1-dvi-taktyky.png";
+
+const kits = [
+  { name: "Комплект «Оборона периметра»", parts: "ПТМ-3 + ПМН-1 + M18", sku: "м.22.1", img: m221 },
+  { name: "Комплект «Мінний трикутник»", parts: "ПМН-2 + ПФМ-1 + M18", sku: "м.25.1", img: m251 },
+  { name: "Комплект «Основи мінної безпеки»", parts: "ПФМ-1 + M18", sku: "м.23.1", img: m231 },
+  { name: "Комплект «Дві тактики мінної дії»", parts: "ПФМ-1 + ПМН-1", sku: "м.24.1", img: m241 },
+];
+---
+<Section id="komplekty" class="komplekty">
+  <div class="container">
+    <header class="section-head">
+      <h2>Готові комплекти</h2>
+      <p class="section-head__lead">Набори для занять, які замовляють одним пакетом. Наявність і комплектацію підтвердить менеджер.</p>
+    </header>
+
+    <div class="komplekty__grid">
+      <article class="kit-feature tile" data-reveal>
+        <div class="kit-feature__img">
+          <Picture src={k328} alt="Тренажер-муляж подвійного поранення з пляшкою штучної крові, системою подачі та рукавичками"
+            formats={["avif", "webp"]} fallbackFormat="webp" widths={[480, 720, 960, 1280]} sizes="(min-width: 1024px) 52vw, 92vw" loading="lazy" decoding="async" />
+        </div>
+        <div class="kit-feature__body">
+          <h3>Тренажер-муляж подвійного поранення в кейсі + 2 типи системи подачі штучної крові Rescue Ready</h3>
+          <p class="sku">Артикул к.328</p>
+          <a class="btn btn--accent" href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" />Уточнити наявність</a>
+        </div>
+      </article>
+
+      <div class="kit-list">
+        <h3 class="kit-list__title">Комплекти макетів мін</h3>
+        <ul>
+          {kits.map((k, i) => (
+            <li class="kit-row" data-reveal style={`--reveal-delay:${i * 60}ms`}>
+              <span class="kit-row__img">
+                <Picture src={k.img} alt={`${k.name}: ${k.parts}`} formats={["avif", "webp"]} fallbackFormat="webp" widths={[120, 240]} sizes="120px" loading="lazy" decoding="async" />
+              </span>
+              <span class="kit-row__text">
+                <span class="kit-row__name">{k.name}</span>
+                <span class="kit-row__meta">{k.parts}, арт. {k.sku}</span>
+              </span>
+              <a class="kit-row__cta" href={contacts.telegram} target="_blank" rel="noopener" aria-label={`Уточнити наявність: ${k.name}`}>
+                <Icon name="telegram" size={18} /><span>Уточнити наявність</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p class="kit-list__more"><FutureLink note={NOTE}>Весь каталог</FutureLink></p>
+      </div>
+    </div>
+  </div>
+</Section>

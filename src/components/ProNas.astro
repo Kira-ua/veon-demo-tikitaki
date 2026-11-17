@@ -1,0 +1,24 @@
+---
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import { contacts, NOTE } from "../data/site";
+const facts = [
+  { n: "1", text: "Імпортуємо й відбираємо перевірене спорядження" },
+  { n: "2", text: "Працюємо з постачальниками й виробниками" },
+  { n: "3", text: "Беремо участь у волонтерських і благодійних проєктах" },
+];
+---
+<Section id="pro-nas" rec="R-011" class="pro-nas">
+  <div class="container pro-nas__grid">
+    <div class="pro-nas__head">
+      <h2>Про компанію</h2>
+      <p class="pro-nas__legal">Продавець — {contacts.company}</p>
+      <FutureLink note={NOTE} class="fl-left">Детальніше про магазин</FutureLink>
+    </div>
+    <ul class="pro-nas__facts" data-reveal>
+      {facts.map((f) => (
+        <li class="pro-fact"><span class="pro-fact__n" aria-hidden="true">{f.n}</span><span class="pro-fact__text">{f.text}</span></li>
+      ))}
+    </ul>
+  </div>
+</Section>

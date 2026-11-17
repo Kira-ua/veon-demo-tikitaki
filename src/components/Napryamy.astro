@@ -1,0 +1,101 @@
+---
+import { Picture } from "astro:assets";
+import Section from "./Section.astro";
+import FutureLink from "./FutureLink.astro";
+import Icon from "./Icon.astro";
+import { contacts, NOTE } from "../data/site";
+import nabir from "../assets/products/k212-nabir-muliazhiv-16-moduliv.png";
+import m18 from "../assets/products/makety-min-m18.png";
+import aptechka from "../assets/products/aptechka-4-komplektatsiia.png";
+import shchyt from "../assets/products/shchyt-zakhystu-soniachnykh-paneley.png";
+
+type Photo = { src: ImageMetadata; alt: string; caption: string; widths: number[] };
+type Chapter = {
+  id: string; verb: string; noun: string; text: string; cta: string;
+  photos: Photo[]; categories: string[]; typeplate?: string[];
+};
+
+const chapters: Chapter[] = [
+  {
+    id: "navchaty", verb: "Навчати", noun: "тренажери, манекени, муляжі поранень, навчальні боєприпаси",
+    text: "Муляжі поранень із системами подачі штучної крові, манекени для СЛР, макети мін з піро-звуковою імітацією спрацювання.",
+    cta: "Запитати в Telegram",
+    photos: [
+      { src: nabir, alt: "Набір муляжів травм і поранень, 16 модулів", caption: "Набір муляжів травм і поранень, 16 модулів, арт. к.212", widths: [360, 540, 720, 1080] },
+      { src: m18, alt: "Навчальний макет міни M18 з комплекту «Оборона периметра»", caption: "Макет M18 з комплекту «Оборона периметра», арт. м.22.1", widths: [360, 540, 720, 1080] },
+    ],
+    categories: ["Медичні манекени", "Муляжі поранень", "Тренажери для швів", "Тренажери для уколів", "Учбові дефібрилятори", "Макети мін", "Навчальні гранати"],
+  },
+  {
+    id: "riatuvaty", verb: "Рятувати", noun: "аптечки й тактична медицина",
+    text: "Укомплектовані аптечки, компоненти для аптечок, кровоспинні засоби та медичне обладнання.",
+    cta: "Запитати в Telegram",
+    photos: [
+      { src: aptechka, alt: "Аптечка укомплектована №4 у підсумку зі швидким скидом, вміст", caption: "Аптечка укомплектована №4 у підсумку зі швидким скидом, арт. апт4.5", widths: [360, 540, 720, 1079] },
+    ],
+    categories: ["Тактичні аптечки", "Кровоспинні засоби", "Засоби іммобілізації", "Засоби від опіків", "Сумки та підсумки", "Медичне обладнання"],
+  },
+  {
+    id: "sporiadzhaty", verb: "Споряджати", noun: "екіпіровка, форменний одяг і туризм",
+    text: "Бронезахист, розвантажувальні системи, рюкзаки, форменний одяг і товари для туризму.",
+    cta: "Запитати в Telegram",
+    photos: [],
+    typeplate: ["Бронежилети", "Бронеплити", "Балістичні шоломи", "Плитоноски і РПС", "Протигази і комплектуючі", "Рюкзаки та підсумки", "Форменний одяг", "Товари для туризму"],
+    categories: [],
+  },
+  {
+    id: "zhyvyty", verb: "Живити", noun: "сонячна енергетика й портативне живлення",
+    text: "Автоматика, щитки захисту, акумулятори й системи накопичення енергії, зарядні станції та пристрої.",
+    cta: "Підібрати з менеджером",
+    photos: [
+      { src: shchyt, alt: "Щит захисту TOMZN для сонячних панелей", caption: "Щит захисту TOMZN для сонячних панелей", widths: [356] },
+    ],
+    categories: ["Автоматика AC/DC", "Готові щитки", "Батареї та акумулятори", "Системи накопичення енергії", "Кріплення для СП", "Зарядні станції", "Зарядні пристрої"],
+  },
+];
+---
+<Section id="napryamy" rec="R-004" class="napryamy">
+  <div class="container">
+    <header class="section-head">
+      <h2>Напрями</h2>
+      <p class="section-head__lead">Розділи каталогу зібрані за тим, для чого купують: навчати, рятувати, споряджати, живити.</p>
+    </header>
+
+    {chapters.map((c) => (
+      <article class="chapter" id={c.id} aria-labelledby={`${c.id}-h`}>
+        <h3 class="chapter__head" id={`${c.id}-h`}>
+          <span class="chapter__verb">{c.verb}</span>
+          <span class="chapter__noun">{c.noun}</span>
+        </h3>
+        <div class="chapter__body" data-reveal>
+          {c.photos.length > 0 && (
+            <div class:list={["chapter__photos", { "chapter__photos--two": c.photos.length > 1, "chapter__photos--small": c.photos[0].widths.length === 1 }]}>
+              {c.photos.map((p) => (
+                <figure class="tile">
+                  <Picture src={p.src} alt={p.alt} formats={["avif", "webp"]} fallbackFormat="webp" widths={p.widths}
+                    sizes={c.photos.length > 1 ? "(min-width: 1024px) 26vw, (min-width: 768px) 45vw, 90vw" : "(min-width: 1024px) 50vw, 90vw"}
+                    loading="lazy" decoding="async" />
+                  <figcaption>{p.caption}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+          {c.typeplate && (
+            <div class="tile tile--type">
+              <ul class="typeplate">
+                {c.typeplate.map((t) => <li><FutureLink note={NOTE}>{t}</FutureLink></li>)}
+              </ul>
+            </div>
+          )}
+          <p class="chapter__text">{c.text}</p>
+          {c.categories.length > 0 && (
+            <ul class="cats" aria-label={`Категорії: ${c.verb.toLowerCase()}`}>
+              {c.categories.map((t) => <li><FutureLink note={NOTE}>{t}</FutureLink></li>)}
+            </ul>
+          )}
+          <a class="btn btn--ghost" href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" />{c.cta}</a>
+        </div>
+      </article>
+    ))}
+  </div>
+</Section>

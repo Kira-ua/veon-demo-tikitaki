@@ -1,0 +1,39 @@
+---
+import { Image } from "astro:assets";
+import FutureLink from "./FutureLink.astro";
+import logo from "../assets/logo-tikitaki.png";
+import { contacts, NOTE } from "../data/site";
+const catalog = ["Тактична медицина", "Медичні навчальні тренажери", "Медичне обладнання", "Навчальні боєприпаси", "Екіпіровка", "Сонячна енергетика", "Портативне живлення", "Розпродаж"];
+const service = ["Про нас", "Оплата і доставка", "Обмін та повернення", "Статті", "Відгуки про магазин", "Угода користувача", "Політика конфіденційності"];
+---
+<footer class="site-footer on-dark" data-rec="R-007">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <a class="logo" href="#top" aria-label="TikiTaki — на початок сторінки">
+        <Image src={logo} alt="TikiTaki" width={112} height={31} densities={[1, 2, 3]} loading="lazy" />
+      </a>
+      <p>Тренажери, тактична медицина, екіпіровка й енергетика.</p>
+    </div>
+    <nav class="site-footer__col" aria-labelledby="f-cat">
+      <p class="site-footer__title" id="f-cat">Каталог</p>
+      <ul>{catalog.map((t) => <li><FutureLink note={NOTE} class="fl-left">{t}</FutureLink></li>)}</ul>
+    </nav>
+    <nav class="site-footer__col" aria-labelledby="f-srv">
+      <p class="site-footer__title" id="f-srv">Покупцям</p>
+      <ul>{service.map((t) => <li><FutureLink note={NOTE} class="fl-left">{t}</FutureLink></li>)}</ul>
+    </nav>
+    <div class="site-footer__col">
+      <p class="site-footer__title">Звʼязок</p>
+      <ul>
+        <li><a href={contacts.phoneHref}>{contacts.phone}</a></li>
+        <li><a href={contacts.telegram} target="_blank" rel="noopener">Telegram</a></li>
+        <li><a href={contacts.emailHref}>{contacts.email}</a></li>
+        <li class="muted">{contacts.hours}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>© 2026 {contacts.company}</p>
+    <FutureLink note={NOTE} class="fl-right">Рус</FutureLink>
+  </div>
+</footer>

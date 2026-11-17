@@ -1,0 +1,8 @@
+---
+import Icon from "./Icon.astro";
+import { contacts } from "../data/site";
+---
+<div class="mbar" data-mbar data-rec="R-003,R-002">
+  <a class="btn btn--accent" href={contacts.phoneHref}><Icon name="phone" />Подзвонити</a>
+  <a class="btn btn--ghost-dark" href={contacts.telegram} target="_blank" rel="noopener"><Icon name="telegram" />Telegram</a>
+</div>
